@@ -1,7 +1,8 @@
 import random
+import time
 
 def display_board(board):
-    
+
     print (" ", board[1] , " | ", board[2], " | ", board[3])
     print ("-----------------")
     print (" ", board[4] , " | ", board[5], " | ", board[6])
@@ -13,7 +14,7 @@ def player_select():
     player1 = ''
     player2 = ''
     while True:
-        marker = input("Player 1, Select 'X' or 'O'").upper()
+        marker = input("Player 1, Select 'X' or 'O': ").upper()
         if marker == 'X' or marker == 'O':
             player1 = marker
             if marker == 'X':
@@ -58,10 +59,8 @@ def win_check(board, mark):
 
 def choose_first():
     x = random.randint(1,2)
-    if x == 1:
-        print ("Player 1 goes first")
-    else:
-        print ("Player 2 goes first")
+    print ("Selecting First Player...")
+    time.sleep(1)
     return x
 
 def space_check(board, position):
@@ -79,7 +78,7 @@ def full_board_check(board):
 
 def player_choice(board):
     while True:
-        choice = int(input("Enter Position"))
+        choice = int(input("Enter Position:"))
         if space_check(board, choice) == False:
             return choice
         
@@ -89,7 +88,7 @@ def player_choice(board):
 
 def replay():
     while True:
-        replay = input("Would you like to replay? 'Yes' / 'No'").lower()
+        replay = input("Would you like to replay? 'Yes' / 'No': ").lower()
         if replay == 'yes':
             return True
         elif replay == 'no':
@@ -120,13 +119,15 @@ while True:
         mark = player1
     else:
         mark = player2
-        
+    print ("Player %s Goes First!"%mark)
+
     display_board(board)
 
     #Game Loop
-    while True:    
+    while True:
         position = player_choice(board)
         place_marker(board, mark ,position)
+        print('\n'*50)
         display_board(board)
         ##win/draw condition
         if win_check(board, mark) == True:
@@ -140,7 +141,9 @@ while True:
                 mark = 'O'
             else:
                 mark = 'X'
-            continue
+        
+        print ('Player %s turn'%mark)
+        continue
         
 
     if replay() == True:
